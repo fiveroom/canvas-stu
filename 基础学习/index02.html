@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+        .canvas{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 200;
+            pointer-events: none;
+        }
+        .content{
+            width: 700px;
+            height: 600px;
+            border: 1px solid red;
+            margin: auto;
+        }
+        .body{
+            height: 100%;
+            width: 100%;
+        }
+        .box1{
+            height: 50%;
+            width: 50%;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="content">
+      
+            <canvas id="canvas" width="400" height="400"></canvas>
+    </div>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const scale = window.devicePixelRatio;
+        ctx.fillStyle = "rgba(0,0,0,0)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // const width = scale * canvas.clientWidth;
+        // const height = scale * canvas.clientHeight;
+        // canvas.width = width; 
+        // canvas.height = height; 
+        // ctx.scale(scale, scale);
+        // ctx.strokeStyle = '#000000';
+        // ctx.fillStyle = '#007fd4';
+        // ctx.font = '16px Microsoft YaHei';
+        // ctx.textBaseline = 'bottom';
+        // ctx.lineWidth = '1px';
+        // ctx.fillText("123", 50, 100);
+        
+        // ctx.closePath()
+        // console.log('ctx.moveTo :>> ', ctx.moveTo);
+        // ctx.moveTo.apply(ctx, [20, 100]);
+        // ctx.lineTo(canvas.clientWidth, 100);
+        // ctx.moveTo(0, 130);
+        // ctx.stroke();
+        // function drawLine(ctx, lineArr){
+        //     ctx.clearRect(0,0, width, height);
+        //     ctx.save()
+        //     ctx.beginPath()
+        //     ctx.setLineDash([4, 4]);
+        //     lineArr.forEach(([start, end]) => {
+
+        //         ctx.moveTo.apply(ctx, start);
+        //         ctx.lineTo.apply(ctx, end);
+
+        //         ctx.moveTo.apply(ctx, [start[0], start[1] - 5]);
+        //         ctx.lineTo.apply(ctx, [start[0], start[1] + 5]);
+        //         ctx.moveTo.apply(ctx, [end[0], end[1] - 5]);
+        //         ctx.lineTo.apply(ctx, [end[0], end[1] + 5]);
+
+        //         let textMetrics = ctx.measureText("345");
+        //         ctx.fillText("345", (start[0] + end[0] - textMetrics.width ) / 2, start[1] - 4)
+
+        //     })
+        //     ctx.stroke();
+        //     ctx.closePath()
+        //     ctx.restore()
+        // }
+        ctx.save()
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 4]);
+        // drawLine(ctx, [[[70, 100], [300, 100]]])
+        ctx.moveTo(40, 0);
+        // 结束坐标
+        ctx.lineTo(200, 100);
+        ctx.setLineDash([]);
+        ctx.moveTo(200, 0);
+        // 结束坐标
+        ctx.lineTo(200, 100);
+        // 绘制当前或已经存在的路径
+        ctx.stroke();
+            setTimeout(() => {
+                ctx.clearRect(0,0, 400, 400);
+                console.log('1111 :>> ', 1111);
+                // ctx.stroke();
+            }, 3000);
+    </script>
+</body>
+</html>

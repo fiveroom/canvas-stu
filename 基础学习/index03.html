@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"  style="border: 1px solid red;height: 400px;width: 400px;"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        let style = getComputedStyle(canvas);
+        let width = parseFloat(style['width']);
+        let height = parseFloat(style['height']);
+
+        // 当前显示设备的物理像素分辨率与CSS像素分辨率之比
+        const scale = window.devicePixelRatio;
+        canvas.width = Math.floor(width * scale);
+        canvas.height = Math.floor(height * scale);
+        const ctx = canvas.getContext('2d');
+
+        let ball = {
+            x: 120,
+            vx: 5,
+            vy: 2,
+            y: 70,
+            width: 100,
+            height: 100,
+            radius: 20,
+            render: function () {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+                ctx.fillStyle = '#0000ff';
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        function clear(){
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fill();
+            ctx.closePath();
+        }
+        let raf;
+        function loopBall(){
+            clear();
+            ball.render();
+            ball.x += ball.vx;
+            ball.y += ball.vy;
+            console.log('123 :>> ', 123);
+            if(ball.x + ball.radius > canvas.width || ball.x < ball.radius){
+                ball.vx = -ball.vx;
+            }
+            if(ball.y + ball.radius > canvas.height || ball.y < ball.radius){
+                ball.vy = -ball.vy;
+            }
+
+            raf = requestAnimationFrame(loopBall)
+        }
+
+        canvas.addEventListener('mouseenter', () => {
+            raf = requestAnimationFrame(loopBall)
+        })
+        canvas.addEventListener('mouseleave', () => {
+            cancelAnimationFrame(raf)
+        })
+
+
+        function drawCircle(){
+            ctx.beginPath();
+            ctx.arc(100, 100, 20, 0, 2 * Math.PI, true);
+            ctx.fillStyle = '#ffe793';
+            // ctx.fill();
+            ctx.fill()
+            ctx.save();
+
+            ctx.beginPath();
+            ctx.arc(200, 200, 20, 0, 2 * Math.PI, true);
+            ctx.fillStyle = '#0095db';
+            ctx.fill()
+            ctx.restore()
+            ctx.beginPath();
+            ctx.arc(160, 160, 20, 0, 2 * Math.PI, true);
+            ctx.fill()
+        }
+        drawCircle()
+    </script>
+</body>
+
+</html>
